@@ -92,7 +92,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
-    with open('model.pkl', 'wb') as file:
+    with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
 
