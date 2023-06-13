@@ -9,8 +9,11 @@ def load_data(messages_filepath, categories_filepath):
     into messages and categories.
     '''
     messages = pd.read_csv(messages_filepath)
-    catergories = pd.read_csv(categories_filepath)
-
+    categories = pd.read_csv(categories_filepath)
+    #merging messages and categories into one dataframe.
+    df = messages.merge(categories, on="id")
+    
+    return df
 
 
 def clean_data(df):
@@ -18,10 +21,11 @@ def clean_data(df):
     - creating names for labels and cleaning up categories columns
     - removing duplicate rows
     '''
-    df = messages.merge(categories, on="id")
-    
+
     #creating labels names and cleaning up columns
+    
     categories = df['categories'].str.split(';',expand=True)
+    
     row = categories.iloc[0]
     category_colnames = row.apply(lambda x: x[:-2])
     categories.columns = category_colnames
@@ -40,6 +44,7 @@ def clean_data(df):
     #removing duplicates
     df=df.drop_duplicates()
 
+    return df
 
 
 
@@ -47,8 +52,9 @@ def save_data(df, database_filename):
     ''' This function creates a database called DisasterProject.db and 
     saves our clean dataset with a filename that you specify.
     '''
-    engine = create_engine('sqlite:///DisasterProject.db')
-    df.to_sql(database_filename, engine, index=False)
+
+    engine = create_engine('sqlite:///' + database_filename)
+    df.to_sql('data', engine, index=False)
 
 
 def main():
@@ -62,6 +68,8 @@ def main():
 
         print('Cleaning data...')
         df = clean_data(df)
+        print('Data all clean!')
+     
         
         print('Saving data...\n    DATABASE: {}'.format(database_filepath))
         save_data(df, database_filepath)
