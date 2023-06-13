@@ -1,16 +1,54 @@
 import sys
+import pandas as pd
+import numpy as np
+from sqlalchemy.engine import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
-    pass
+    ''' This function loads our messages and categories datasets 
+    into messages and categories.
+    '''
+    messages = pd.read_csv(messages_filepath)
+    catergories = pd.read_csv(categories_filepath)
+
 
 
 def clean_data(df):
-    pass
+    '''This function cleans up the dataset by:
+    - creating names for labels and cleaning up categories columns
+    - removing duplicate rows
+    '''
+    df = messages.merge(categories, on="id")
+    
+    #creating labels names and cleaning up columns
+    categories = df['categories'].str.split(';',expand=True)
+    row = categories.iloc[0]
+    category_colnames = row.apply(lambda x: x[:-2])
+    categories.columns = category_colnames
+
+    for column in categories:
+    # set each value to be the last character of the string
+        categories[column] = categories[column].str[-1:]
+    
+    # convert column from string to numeric
+        categories[column] = categories[column].astype(float)
+    
+
+    df=df.drop(columns=['categories'], axis=1)
+    df = pd.concat([df,categories],axis=1)
+
+    #removing duplicates
+    df=df.drop_duplicates()
+
+
 
 
 def save_data(df, database_filename):
-    pass  
+    ''' This function creates a database called DisasterProject.db and 
+    saves our clean dataset with a filename that you specify.
+    '''
+    engine = create_engine('sqlite:///DisasterProject.db')
+    df.to_sql(database_filename, engine, index=False)
 
 
 def main():
