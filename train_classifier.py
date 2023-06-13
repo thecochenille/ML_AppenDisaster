@@ -33,8 +33,9 @@ def load_data(database_filepath):
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('data', engine)
     X = df['message']
-    Y = df.iloc[:,-36:] 
-    return X, Y
+    Y = df.iloc[:,-36:]
+    category_names = Y.columns
+    return X, Y, category_names
 
 def tokenize(text):
     text = re.sub(r"[^a-zA-Z0-9]", " ", text) #removing all punctuations
@@ -52,8 +53,9 @@ def tokenize(text):
 
 
 
-def build_model():
+def build_model(X_train,Y_train):
     #define the pipeline
+    print(X_train.head())
     pipeline = Pipeline([
             ('vect', CountVectorizer(token_pattern=None,tokenizer = tokenize)),
             ('tfidf', TfidfTransformer()),
@@ -67,7 +69,7 @@ def build_model():
                  'clf__estimator__n_estimators': n_estimators}
 
     grid_search = GridSearchCV(pipeline, param_grid = parameters)
-    grid_search.fit(X_test, Y_test)
+    grid_search.fit(X_train, Y_train)
     print('The best parameters are : ' + model.best_params)
     
     best_params = grid_search.best_params_
@@ -76,23 +78,22 @@ def build_model():
             ('tfidf', TfidfTransformer()),
             ('clf', MultiOutputClassifier(RandomForestClassifier(**best_params)))
     ])
-
     return model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
     
-    model.fit(X_test, Y_test)
-    y_pred = model.predict(X_test)
+    
+    Y_pred = model.predict(X_test)
 
     for i, col in enumerate(category_names):
-    print('Classification report for: ' + col)
-    print(classification_report(y_test.iloc[:, i], y_pred[:, i]))
+        print('Classification report for: ' + col)
+        print(classification_report(Y_test.iloc[:, i], Y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
     with open('model.pkl', 'wb') as file:
-    pickle.dump(model, file)
+        pickle.dump(model, file)
 
 
 
@@ -104,7 +105,7 @@ def main():
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
         print('Building model...')
-        model = build_model()
+        model = build_model(X_train,Y_train)
         
         print('Training model...')
         model.fit(X_train, Y_train)
