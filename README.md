@@ -31,11 +31,23 @@ python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
 
 
 # Repository files and folders:
-## data/
+- app
+| - template
+| |- master.html  # main page of web app
+| |- go.html  # classification result page of web app
+|- run.py  # Flask file that runs app
 
-## models/
-## app/
-- run.py: script running the app with data viz and use the model
+- data
+|- categories.csv  # data to process 
+|- messages.csv  # data to process
+|- process_data.py
+|- DisasterResponse.db   # database to save clean data to
+
+- models
+|- train_classifier.py 
+|- classifier.pkl  # saved model 
+
+- README.md
 
 ## jupyter notebooks
 - ETL pipeline Preparation.ipynb: data preparation and cleaning
