@@ -78,21 +78,19 @@ def build_model(X_train,Y_train):
             ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
 
-    #create a model with parameter tuning for clf
+    #create a model with parameter tuning for clf using GridSearchCV
     n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 20)]
 
     parameters = {'clf__estimator__max_features': ['auto', 'sqrt'],
                  'clf__estimator__n_estimators': n_estimators}
 
     model = GridSearchCV(pipeline, param_grid = parameters)
-    model.fit(X_train, Y_train)
-    print('The best parameters are : ' + model.best_params_)
     
     return model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-    
+    print('The best parameters are : ' + model.best_params_)
     #predicting Y from X_test using the best estimator from GridSearchCV
     Y_pred = model.best_estimator_.predict(X_test)
 
