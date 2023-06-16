@@ -19,6 +19,15 @@ The project was built in three main steps:
 # How to run the scripts 
 ## Requirements
 
+## Execution
+1. To prepare the data and cleaning it up, then saving the dataframe to an SQL database, run process_data.py as follows:
+   
+python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db
+
+2. Then, to train the model, run the train_classifier.py as follows:
+
+python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
+
 
 
 # Repository files and folders:
