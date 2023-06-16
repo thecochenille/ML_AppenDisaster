@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import re
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -11,10 +12,13 @@ from plotly.graph_objs import Bar
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
+from wordcloud import WordCloud
+
 
 app = Flask(__name__)
 
 def tokenize(text):
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text) #removing all punctuations
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -42,29 +46,62 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+
+    genre=df['genre'].unique()
+
+
+    #preparing dataframe to subset by genre for wordcloud
+    dataframes = {}
+    for i in genre:
+        subset = df[df['genre'] == i]
+        dataframes[i] = subset
+
+
     
-    # create visuals
+    # create wordclouds
+    wordcloud = wordcloud.WordCloud(width=500, height=500,
+                                max_words=100,
+                                min_font_size=10)
+
+    texts={}
+    for key, dataframe in dataframes.items():
+        text = dataframe['message'].values
+        wordcloud = wordcloud.generate(str(text))
+
+
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
-        {
-            'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
-                )
-            ],
+    {
+        'data': [
+            Bar(
+                x=genre_names,
+                y=genre_counts
+            )
+        ],
 
-            'layout': {
-                'title': 'Distribution of Message Genres',
-                'yaxis': {
-                    'title': "Count"
-                },
-                'xaxis': {
-                    'title': "Genre"
-                }
+        'layout': {
+            'title': 'Distribution of Message Genres',
+            'yaxis': {
+                'title': "Count"
+            },
+            'xaxis': {
+                'title': "Genre"
             }
         }
-    ]
+    },
+    {
+        "data": [wordcloud],
+    "layout": {
+        "title": "Most Common Words for each type of message",
+        "yaxis": {
+            "title": "Frequency"
+        },
+        "xaxis": {
+            "title": "Word"
+            }
+        }
+    }
+]
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
