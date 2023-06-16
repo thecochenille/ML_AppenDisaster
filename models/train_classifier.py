@@ -29,6 +29,13 @@ def load_data(database_filepath):
     '''
     this function loads the data from the database created in process_data.py, 
     and separates labels and features into Y and X.
+
+    Argument: database filepath
+
+    Output: X = dataframe of categories
+            Y = dataframe of feature (here message contain texts)
+            category_names = names of each column of Y
+
     '''
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('data', engine)
@@ -38,6 +45,15 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    '''
+    this function takes an array text, prepares it by removing punctuations, 
+    creating word tokens, and lemmatize and remove caps. the clean tokens are saved 
+    in clean_tokens 
+
+    Input: text = 
+
+    Output: clean_tokens = 
+    '''
     text = re.sub(r"[^a-zA-Z0-9]", " ", text) #removing all punctuations
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -68,23 +84,17 @@ def build_model(X_train,Y_train):
     parameters = {'clf__estimator__max_features': ['auto', 'sqrt'],
                  'clf__estimator__n_estimators': n_estimators}
 
-    grid_search = GridSearchCV(pipeline, param_grid = parameters)
-    grid_search.fit(X_train, Y_train)
-    print('The best parameters are : ' + model.best_params)
+    model = GridSearchCV(pipeline, param_grid = parameters)
+    model.fit(X_train, Y_train)
+    print('The best parameters are : ' + model.best_params_)
     
-    best_params = grid_search.best_params_
-    model = Pipeline([
-            ('vect', CountVectorizer(token_pattern=None,tokenizer = tokenize)),
-            ('tfidf', TfidfTransformer()),
-            ('clf', MultiOutputClassifier(RandomForestClassifier(**best_params)))
-    ])
     return model
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
     
-    
-    Y_pred = model.predict(X_test)
+    #predicting Y from X_test using the best estimator from GridSearchCV
+    Y_pred = model.best_estimator_.predict(X_test)
 
     for i, col in enumerate(category_names):
         print('Classification report for: ' + col)
