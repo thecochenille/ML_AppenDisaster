@@ -29,20 +29,20 @@ You can either run the app locally or go to XXX which allows you to have a gener
 All the Python requirements are saved in requirements.txt
 
 ## If you want to run the scripts from the beginning
-1. To prepare the data and cleaning it up, then saving the dataframe to an SQL database, run process_data.py as follows:
+1. To prepare the data and cleaning it up, then saving the dataframe to an SQL database, run process_data.py in your Terminal as follows:
    
-python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db
+`python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db`
 
 2. Then, to train the model, run the train_classifier.py as follows:
 
-python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl
+`python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
 This will train and save your model to classifier.pkl
 
 3. Once you have you model saved, you can use it with the Flask app and run it.
 
-cd app
-python main.py
+`cd app
+python main.py`
 
 
 
