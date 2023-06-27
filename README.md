@@ -47,7 +47,7 @@ python main.py`
 
 
 # Repository files and folders:
-
+```bash
 ├── app:
     │ └── templates
     │  ├── go.html # classification result page of web app
@@ -72,6 +72,9 @@ python main.py`
 ├── README.md
 
 ├── requirements.txt
+
+```
+
 
 
 ## jupyter notebooks
