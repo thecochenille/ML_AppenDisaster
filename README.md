@@ -47,24 +47,32 @@ python main.py`
 
 
 # Repository files and folders:
-`- app
-| - template
-| |- master.html  # main page of web app
-| |- go.html  # classification result page of web app
-|- main.py  # Flask file that runs app`
 
-`- data
-|- categories.csv  # data to process 
-|- messages.csv  # data to process
-|- process_data.py
-|- DisasterResponse.db   # database to save clean data to`
+├── app:
+    │ └── templates
+    │  ├── go.html # classification result page of web app
+    │  ├── master.html # main page of web app
+    │  
+    └── main.py # Flask file that runs app
 
-`- models
-|- train_classifier.py 
-|- classifier.pkl  # saved model `
+├── data:
+   └── process_data.py #file contain the script to create ETL pipeline 
+   └── disaster_categories.csv # data to process
+   └── disaster_messages.csv # data to process 
+   └── DisasterResponse.db   # database to save clean data to
 
-`- README.md`
-`- requirements.txt`
+├── models:
+      └── train_classifier.py #file contain the script to create ML pipeline
+	  └── classifier.pkl # saved model after running train_classifier.py
+
+├── ETL Pipeline Preparation.ipynb
+
+├── ML Pipeline Preparation.ipynb
+
+├── README.md
+
+├── requirements.txt
+
 
 ## jupyter notebooks
 - ETL pipeline Preparation.ipynb: data preparation and cleaning
