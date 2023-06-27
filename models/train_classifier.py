@@ -79,10 +79,13 @@ def build_model(X_train,Y_train):
     ])
 
     #create a model with parameter tuning for clf using GridSearchCV
-    n_estimators = [int(x) for x in np.linspace(start = 200, stop = 2000, num = 20)]
+    n_estimators = [10, 100, 1000]
+    criterion = ['gini', 'entropy', 'log_loss']
+    max_features = ['sqrt', 'log2', None] # we can also look at int and float values but I decided not to to reduce the number of searches for this exercise.
 
-    parameters = {'clf__estimator__max_features': ['auto', 'sqrt'],
-                 'clf__estimator__n_estimators': n_estimators}
+    parameters = {'clf__estimator__n_estimators': n_estimators,
+                  'clf__estimator__criterion': criterion,
+                  'clf__estimator__max_features': max_features}
 
     model = GridSearchCV(pipeline, param_grid = parameters)
     
