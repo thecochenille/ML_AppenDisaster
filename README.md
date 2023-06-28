@@ -1,6 +1,8 @@
 Machine Learning Project\
 Appen Disaster Response
 =============================================
+PROJECT IN PROGRESS
+=============================================
 # Project Summary: 
 In the aftermath of disasters, it is challenging for organizations to rapidly make decisions on the type of response and emergency support to provide to victims. Using data science and machine learning can help speed up the decision process help responders provide the adequate response. 
 
