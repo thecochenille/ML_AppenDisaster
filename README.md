@@ -51,7 +51,9 @@ python main.py`
 
 # What does it look like?
 ## Data visualization page
-You will find a bar plot showing the origin of messages (do they come from a direct message, a news outlet or social media?) and wordclouds for each of the message origin.
+You can visualize the dataset used to train the machine learning model from a bar plot categorizing each message by their origin, and wordclouds showing what the most frequent words were in the different types of messages.
+
+Below the data visualization, you can test the machine learning model by inserting an emergency message.
 
 ![](https://github.com/thecochenille/ML_AppenDisaster/blob/498729efe0d690ce2d08508d723f3086ba7ae846/ScreenShot1.png)
 
