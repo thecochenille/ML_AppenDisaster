@@ -19,9 +19,10 @@ The Appen Disaster Response dataset contains over 26,000 emergency messages clas
 # Project building process:
 
 The project was built in three main steps:
-- Data preparation: 
+- Data preparation 
 - Model building
-- Flask App integration and deployment on 
+- Flask App integration
+- Deployment on AWS Elastic Beanstalk (in progress as of Aug 24 2023)
 
 
 # How to use the app
