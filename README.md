@@ -75,7 +75,8 @@ Below the data visualization, you can test the machine learning model by inserti
 
 ├── models:
       └── train_classifier.py #file contain the script to create ML pipeline and train the train dataset. The script uses GridSearchCV to try different parameters of Random Forest so it takes a while to run. If you want to just run the model with defaults parameters, use train_classifier2.py 
-	└── train_classifier2.py # this is the faster version of the machine learning pipeline, with defaults parameters, it will generate a classifier.pkl file to use in the app.
+	└── train_classifier2.py # this is the faster version of the machine learning pipeline, with defaults parameters, it will generate a pkl file to use in the app.
+├── EDA.ipynb # this file contains the python script to create the data visualizations used on the Flask App
 
 ├── ETL Pipeline Preparation.ipynb
 
@@ -83,7 +84,7 @@ Below the data visualization, you can test the machine learning model by inserti
 
 ├── README.md
 
-├── requirements.txt
+├── requirements.txt #the list of Python packages used to work on this project
 
 ```
 
@@ -92,7 +93,7 @@ Below the data visualization, you can test the machine learning model by inserti
 ## jupyter notebooks
 - ETL pipeline Preparation.ipynb: data preparation and cleaning
 - ML pipeline Preparation.ipynb: model building and evaluation
-- EDA pipeline Preparation.ipynb: data exploration and visualization
+- EDA.ipynb: data exploration and visualization
 
 
 
