@@ -39,9 +39,9 @@ All the Python requirements are saved in requirements.txt
 
 2. Then, to train the model (no saved model in the repo), run the train_classifier.py as follows:
 
-`python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+`python models/train_classifier.py data/DisasterResponse.db models/classifier3.pkl`
 
-This will train and save your model to classifier.pkl
+This will train and save your model to classifier3.pkl , which is going to be used in main.py for the flask app.
 
 3. Once you have your model saved, you can use it with the Flask app and run it locally.
 
