@@ -1,0 +1,18 @@
+FROM python:3.10-slim-buster
+
+RUN apt-get update && apt-get install -y gcc
+
+WORKDIR /app
+
+COPY requirements.txt /app/requirements.txt
+COPY main.py /app/main.py
+COPY templates/ /app/templates/
+COPY data/ /app/data/
+COPY classifier3.pkl /app/classifier3.pkl
+
+RUN pip install --upgrade pip
+RUN pip install -r /app/requirements.txt
+
+EXPOSE 8080
+
+ENTRYPOINT python main.py
