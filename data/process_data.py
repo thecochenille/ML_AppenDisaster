@@ -5,8 +5,17 @@ from sqlalchemy.engine import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
-    ''' This function loads our messages and categories datasets 
+    ''' 
+    load_data
+    This function loads our messages and categories datasets 
     into messages and categories.
+
+    Input: 
+    messages_filepath : a file path to the message dataset (csv format)
+    categories_filepath : a file path to the categories dataset (csv format)
+
+    Output: 
+    df : a dataframe where messages and categories are merged
     '''
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -17,9 +26,17 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
-    '''This function cleans up the dataset by:
+    '''
+    clean_data
+    This function cleans up the dataset by:
     - creating names for labels and cleaning up categories columns
     - removing duplicate rows
+
+    Input: 
+    df : dataframe created by load_data
+
+    Output:
+    df : clean dataframe
     '''
 
     #creating labels names and cleaning up columns
@@ -49,12 +66,23 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
-    ''' This function creates a database called DisasterProject.db and 
+    ''' 
+    save_data
+    This function creates a database called DisasterProject.db and 
     saves our clean dataset with a filename that you specify.
+
+    Input:
+    df : a clean dataframe
+    database_filename: a filename to save the dataset into the database
+    
+    Output:
+    none
+
+
     '''
 
     engine = create_engine('sqlite:///' + database_filename)
-    df.to_sql('data', engine, index=False)
+    df.to_sql('data', engine, index=False, if_exists='replace')
 
 
 def main():

@@ -27,14 +27,15 @@ import pickle
 
 def load_data(database_filepath):
     '''
+    load_data
     this function loads the data from the database created in process_data.py, 
     and separates labels and features into Y and X.
 
-    Argument: database filepath
+    Input: database filepath
 
-    Output: X = dataframe of categories
-            Y = dataframe of feature (here message contain texts)
-            category_names = names of each column of Y
+    Output: X : dataframe of categories
+            Y : dataframe of feature (here message contain texts)
+            category_names : list of names of each column of Y
 
     '''
     engine = create_engine('sqlite:///'+database_filepath)
@@ -46,13 +47,17 @@ def load_data(database_filepath):
 
 def tokenize(text):
     '''
+    tokenize
     this function takes an array text, prepares it by removing punctuations, 
     creating word tokens, and lemmatize and remove caps. the clean tokens are saved 
     in clean_tokens 
 
-    Input: text = 
+    Input: 
+    text : unpreocessed text array
 
-    Output: clean_tokens = 
+    Output: 
+    clean_tokens : array with processed words (tokenized, 
+    lemmatized and caps removed)
     '''
     text = re.sub(r"[^a-zA-Z0-9]", " ", text) #removing all punctuations
     tokens = word_tokenize(text)
@@ -70,8 +75,21 @@ def tokenize(text):
 
 
 def build_model(X_train,Y_train):
+    '''
+    build_model
+    this function creates the pipeline for data NLP processing and 
+    the classification model using Random Forest
+
+    Input:
+    X_train : a dataframe of the features of the training dataset
+    Y_train : a dataframe of the target of the training dataset
+
+    Output:
+    model: an object containing the pipeline to be used
+
+    '''
     #define the pipeline
-    print(X_train.head())
+    
     pipeline = Pipeline([
             ('vect', CountVectorizer(token_pattern=None,tokenizer = tokenize)),
             ('tfidf', TfidfTransformer()),
@@ -93,6 +111,20 @@ def build_model(X_train,Y_train):
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    evaluate_model
+    this functions evaluates my model and produces the best estimators of the model
+
+    Input:
+    model : pipeline object containing the pipeline and parameters
+    X_test : dataframe of features from the test dataset
+    Y_test : datafram of the targets from the test dataset
+    category_names: list of categories
+
+    Output:
+    None
+
+    '''
     print('The best parameters are : ' + model.best_params_)
     #predicting Y from X_test using the best estimator from GridSearchCV
     Y_pred = model.best_estimator_.predict(X_test)
@@ -103,6 +135,19 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''
+    save_model
+    this function saves a model into a pickle file
+
+    Input:
+    model : trained model
+    model_filepath: filepath to which the pickle file is saved
+    
+
+    Output:
+    None
+
+    '''
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
