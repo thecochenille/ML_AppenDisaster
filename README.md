@@ -1,8 +1,8 @@
 Machine Learning Project\
 Appen Disaster Response
 =============================================
-PROJECT STATUS
-- Working on deploying the Flask app on Google Cloud
+PROJECT STATUS (Aug 24 2023)
+- Deploying the Flask app to AWS Elastic Beanstalk using Docker
 
 =============================================
 # Project Summary: 
@@ -10,11 +10,11 @@ In the aftermath of disasters, it is challenging for organizations to rapidly de
 
 To build a Machine Learning model that can help classify messages received from various media, we used the Appen Disaster Response dataset, an open-source project containing real-world messages from various disasters from the past few years.
 
-We used Natural Language Processing to build a Machine Learning model and made it available by building an Flask app, a Python web framework.
+We used Natural Language Processing to build a Machine Learning model and made it available by building a Flask app, a Python web framework.
 
 # The Dataset
 
-The Appen Disaster Response dataset contains over 26,000 emergency messages classified into 36 response categories. Each message is also categorized into three genres, which is the origin of the message: a direct message, a message from social media, or a message from a news outlet. You can visualize the distribution of genre at XXX.
+The Appen Disaster Response dataset contains over 26,000 emergency messages classified into 36 response categories. Each message is also categorized into three genres, which is the origin of the message: a direct message, a message from social media, or a message from a news outlet.
 
 # Project building process:
 
@@ -33,17 +33,17 @@ You can run the app locally (How to run the scripts) which allows you to have a 
 All the Python requirements are saved in requirements.txt
 
 ## If you want to run the scripts from the beginning
-1. To prepare the data and cleaning it up, then saving the dataframe to an SQL database, run process_data.py in your Terminal as follows:
+1. To prepare the data and clean it up, then save the dataframe to an SQL database, run process_data.py in your Terminal as follows:
    
 `python data/process_data.py data/messages.csv data/categories.csv data/DisasterResponse.db`
 
-2. Then, to train the model, run the train_classifier.py as follows:
+2. Then, to train the model (no saved model in the repo), run the train_classifier.py as follows:
 
 `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
 
 This will train and save your model to classifier.pkl
 
-3. Once you have your model saved, you can use it with the Flask app and run it.
+3. Once you have your model saved, you can use it with the Flask app and run it locally.
 
 `cd app
 python main.py`
