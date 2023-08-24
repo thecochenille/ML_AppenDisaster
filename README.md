@@ -53,8 +53,7 @@ python main.py`
 ## Data visualization page
 You will find a bar plot showing the origin of messages (do they come from a direct message, a news outlet or social media?) and wordclouds for each of the message origin.
 
-![](https://github.com/thecochenille/ML_AppenDisaster/blob/8393bd4b12586c65d68ab5b4858e5012fc316c8a/ScreenShot1.png)
-
+![](https://github.com/thecochenille/ML_AppenDisaster/blob/498729efe0d690ce2d08508d723f3086ba7ae846/ScreenShot1.png)
 
 # Repository files and folders:
 ```bash
