@@ -22,6 +22,7 @@ from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
 import sklearn.externals
 import joblib
+import plotly.express as px
 
 
 
@@ -63,8 +64,28 @@ def index():
   
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
+    # barplot 1: number of messages by genre
+    #x: genre names y: genre counts
+
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+
+    #heatmap by category
+
+    categories = df.columns[4:] 
+    messages = df['id']
+
+    #making the heatmap
+    heatmap_fig = px.imshow(df[categories], x=categories, y=messages, color_continuous_scale=[[0, 'black'], [1, 'pink']])
+
+    #heatmap layout
+    heatmap_fig.update_layout(
+    xaxis_title="Categories",
+    yaxis_title="Messages",
+    title="Distribution of messages by category"
+)
+
+
 
     #subsetting data for each genre
     subset_direct = df[df['genre'] == 'direct']
@@ -91,13 +112,14 @@ def index():
 
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
+    heatmap_fig,
     {
         'data': [
             {
                 'x': genre_names,
                 'y': genre_counts,
                 'type': 'bar',
-                'marker': {'color': [color_palette.get(genre, 'lightgray') for genre in genre_names]}
+                'marker': {'color': [color_palette.get(genre, 'viridis') for genre in genre_names]}
             }
         ],
 
@@ -113,6 +135,8 @@ def index():
     }
 
     ]
+
+    
 
   
     # encode plotly graphs in JSON

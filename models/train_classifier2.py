@@ -21,7 +21,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 
 import pickle
-
+import os
 
 
 
@@ -105,6 +105,10 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    app_directory = '../app/'
+    model_filepath = os.path.join(app_directory, model_filename)
+    os.makedirs(os.path.dirname(model_filepath), exist_ok=True)
+    
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
