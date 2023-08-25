@@ -104,12 +104,12 @@ def evaluate_model(model, X_test, Y_test, category_names):
         print(classification_report(Y_test.iloc[:, i], Y_pred[:, i]))
 
 
-def save_model(model, model_filepath):
+def save_model(model, model_filename):
     app_directory = '../app/'
-    model_filepath = os.path.join(app_directory, model_filename)
-    os.makedirs(os.path.dirname(model_filepath), exist_ok=True)
+    filepath = os.path.join(app_directory, model_filename)
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     
-    with open(model_filepath, 'wb') as file:
+    with open(filepath, 'wb') as file:
         pickle.dump(model, file)
 
 
