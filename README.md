@@ -51,8 +51,8 @@ This will train and save your model to classifier.pkl , which is going to be use
 4. Once you have your model saved (The model should have been saved in the app folder so no need to move it).
    You can now start the app locally!
 
-`cd app
-python main.py`
+`cd app`
+`python main.py`
 
 
 # What does it look like?
