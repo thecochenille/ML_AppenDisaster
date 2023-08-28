@@ -53,6 +53,8 @@ This will train and save your model to classifier.pkl , which is going to be use
 
 `cd app`
 
+then
+
 `python main.py`
 
 
