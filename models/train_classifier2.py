@@ -105,7 +105,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filename):
-    app_directory = '../app/'
+    app_directory = '/app/'
     filepath = os.path.join(app_directory, model_filename)
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     
