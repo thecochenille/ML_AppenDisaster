@@ -19,9 +19,10 @@ The Appen Disaster Response dataset contains over 26,000 emergency messages clas
 # Project building process:
 
 The project was built in three main steps:
-- Data preparation: 
+- Data preparation 
 - Model building
-- Flask App integration and deployment on 
+- Flask App integration
+- Deployment on AWS Elastic Beanstalk (in progress as of Aug 24 2023)
 
 
 # How to use the app
@@ -39,9 +40,9 @@ All the Python requirements are saved in requirements.txt
 
 2. Then, to train the model (no saved model in the repo), run the train_classifier.py as follows:
 
-`python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+`python models/train_classifier.py data/DisasterResponse.db classifier3.pkl`
 
-This will train and save your model to classifier.pkl
+This will train and save your model to classifier3.pkl , which is going to be used in main.py for the flask app.
 
 3. Once you have your model saved, you can use it with the Flask app and run it locally.
 
@@ -51,10 +52,11 @@ python main.py`
 
 # What does it look like?
 ## Data visualization page
-You will find a bar plot showing the origin of messages (do they come from a direct message, a news outlet or social media?) and wordclouds for each of the message origin.
+You can visualize the dataset used to train the machine learning model from a bar plot categorizing each message by their origin, and wordclouds showing what the most frequent words were in the different types of messages.
 
-![](https://github.com/thecochenille/ML_AppenDisaster/blob/8393bd4b12586c65d68ab5b4858e5012fc316c8a/ScreenShot1.png)
+Below the data visualization, you can test the machine learning model by inserting an emergency message.
 
+![](https://github.com/thecochenille/ML_AppenDisaster/blob/498729efe0d690ce2d08508d723f3086ba7ae846/ScreenShot1.png)
 
 # Repository files and folders:
 ```bash
@@ -74,7 +76,8 @@ You will find a bar plot showing the origin of messages (do they come from a dir
 
 ├── models:
       └── train_classifier.py #file contain the script to create ML pipeline and train the train dataset. The script uses GridSearchCV to try different parameters of Random Forest so it takes a while to run. If you want to just run the model with defaults parameters, use train_classifier2.py 
-	└── train_classifier2.py # this is the faster version of the machine learning pipeline, with defaults parameters, it will generate a classifier.pkl file to use in the app.
+	└── train_classifier2.py # this is the faster version of the machine learning pipeline, with defaults parameters, it will generate a pkl file to use in the app.
+├── EDA.ipynb # this file contains the python script to create the data visualizations used on the Flask App
 
 ├── ETL Pipeline Preparation.ipynb
 
@@ -82,7 +85,7 @@ You will find a bar plot showing the origin of messages (do they come from a dir
 
 ├── README.md
 
-├── requirements.txt
+├── requirements.txt #the list of Python packages used to work on this project
 
 ```
 
@@ -91,7 +94,7 @@ You will find a bar plot showing the origin of messages (do they come from a dir
 ## jupyter notebooks
 - ETL pipeline Preparation.ipynb: data preparation and cleaning
 - ML pipeline Preparation.ipynb: model building and evaluation
-- EDA pipeline Preparation.ipynb: data exploration and visualization
+- EDA.ipynb: data exploration and visualization
 
 
 
