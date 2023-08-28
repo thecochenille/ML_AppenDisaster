@@ -52,6 +52,7 @@ This will train and save your model to classifier.pkl , which is going to be use
    You can now start the app locally!
 
 `cd app`
+
 `python main.py`
 
 
