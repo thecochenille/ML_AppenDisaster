@@ -1,9 +1,6 @@
 Machine Learning Project\
 Appen Disaster Response
 =============================================
-PROJECT STATUS (Aug 28 2023)
-- Deploying the Flask app to AWS Elastic Beanstalk using Docker
-
 =============================================
 # Project Summary: 
 In the aftermath of disasters, it is challenging for organizations to rapidly decide on the type of response and emergency support to provide victims. Data science and machine learning can help speed up the decision process and help responders provide adequate responses. 
@@ -106,8 +103,7 @@ Below the data visualization, you can test the machine learning model by inserti
 
 
 # Future implementation
-- I am preparing to deploy this app on AWS to include a pipeline that will process the data, train the model and make it available online.
-
+- Deploying the Flask App on the cloud
 
 # Credits: 
 - Dataset : [Appen](https://appen.com/) provided the Disaster Response dataset
