@@ -49,7 +49,7 @@ def tokenize(text):
 
 
 # load model
-model = joblib.load("classifier.pkl")
+model = joblib.load("app/classifier.pkl")
 
 color_palette = {
     'direct': '#999999',
